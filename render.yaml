@@ -1,11 +1,9 @@
 services:
   - type: web
     name: whisper-transcription
-    env: python
+    env: docker
     region: frankfurt
     plan: free
-    buildCommand: apt-get install -y ffmpeg && pip install -r requirements.txt
-    startCommand: uvicorn main_render:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: WHISPER_MODEL
         value: tiny

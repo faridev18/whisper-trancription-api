@@ -6,11 +6,17 @@ import os
 # Injecte ffmpeg dans le PATH depuis plusieurs sources possibles
 def _setup_ffmpeg():
     # 1. Essai via imageio-ffmpeg
+    # Le binaire s'appelle "ffmpeg-linux-x86_64-vX.Y.Z", pas "ffmpeg"
+    # On crée un symlink "ffmpeg" dans le même dossier pour que whisper le trouve
     try:
         import imageio_ffmpeg
-        ffmpeg_bin = os.path.dirname(imageio_ffmpeg.get_ffmpeg_exe())
-        if ffmpeg_bin and ffmpeg_bin not in os.environ.get("PATH", ""):
-            os.environ["PATH"] = ffmpeg_bin + os.pathsep + os.environ.get("PATH", "")
+        ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
+        ffmpeg_dir = os.path.dirname(ffmpeg_exe)
+        ffmpeg_link = os.path.join(ffmpeg_dir, "ffmpeg")
+        if not os.path.exists(ffmpeg_link):
+            os.symlink(ffmpeg_exe, ffmpeg_link)
+        if ffmpeg_dir not in os.environ.get("PATH", ""):
+            os.environ["PATH"] = ffmpeg_dir + os.pathsep + os.environ.get("PATH", "")
         return
     except Exception:
         pass

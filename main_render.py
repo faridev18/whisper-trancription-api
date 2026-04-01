@@ -25,7 +25,7 @@ _setup_ffmpeg()
 
 # Sur Render free tier, utilise "tiny" pour éviter les OOM (512MB RAM)
 # Modifiable via la variable d'env WHISPER_MODEL
-MODEL_SIZE = os.environ.get("WHISPER_MODEL", "tiny")
+MODEL_SIZE = os.environ.get("WHISPER_MODEL", "base")
 
 app = FastAPI(title="Whisper Transcription API")
 model = whisper.load_model(MODEL_SIZE)

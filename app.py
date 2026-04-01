@@ -26,6 +26,6 @@ if uploaded_file is not None:
                 st.success(f"Langue détectée : **{data['language']}**")
                 st.text_area("Transcription", data["text"], height=300)
             except requests.ConnectionError:
-                st.error("Impossible de se connecter à l'API. Lance d'abord : `uvicorn main:app --reload --port 8000`")
+                st.error(f"Impossible de se connecter à l'API ({API_URL}). Vérifie que le serveur est démarré.")
             except Exception as e:
                 st.error(f"Erreur : {e}")

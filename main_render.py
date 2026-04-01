@@ -2,6 +2,12 @@ from fastapi import FastAPI, UploadFile, File
 import whisper
 import tempfile
 import os
+import imageio_ffmpeg
+
+# Injecte ffmpeg (fourni par imageio-ffmpeg) dans le PATH
+ffmpeg_bin = os.path.dirname(imageio_ffmpeg.get_ffmpeg_exe())
+if ffmpeg_bin not in os.environ.get("PATH", ""):
+    os.environ["PATH"] = ffmpeg_bin + os.pathsep + os.environ.get("PATH", "")
 
 # Sur Render free tier, utilise "tiny" pour éviter les OOM (512MB RAM)
 # Modifiable via la variable d'env WHISPER_MODEL

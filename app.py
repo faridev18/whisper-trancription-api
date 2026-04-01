@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-API_URL = "http://localhost:8000"
+API_URL = "https://whisper.souadmall.com"
 
 st.set_page_config(page_title="Whisper Transcription", page_icon="🎙️")
 st.title("🎙️ Whisper Transcription")
